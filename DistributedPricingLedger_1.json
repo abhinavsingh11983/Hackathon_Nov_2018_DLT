@@ -1,0 +1,193 @@
+{
+  "ApplicationName": "DistributedPricingLedger",
+  "DisplayName": "Distributed Pricing Ledger",
+  "Description": "An Application To generate price prediction",
+  "ApplicationRoles": [
+    {
+      "Name": "Admin",
+      "Description": "A person who opens the contract to accept bids."
+    },
+    {
+      "Name": "Member",
+      "Description": "Member Companies who will submit their bids/transaction details"
+    }
+  ],
+  "Workflows": [
+    {
+      "Name": "DistributedPricingLedger",
+      "DisplayName": "Open Contract For Bids",
+      "Description": "A Distributed Price Ledger",
+      "Initiators": [ "Admin" ],
+      "StartState": "Open",
+      "Properties": [
+        {
+          "Name": "State",
+          "DisplayName": "State",
+          "Description": "Holds the state of the contract.",
+          "Type": {
+            "Name": "state"
+          }
+        },
+		{
+          "Name": "Admin",
+          "DisplayName": "Admin",
+          "Description": "Name Of The Administrator.",
+          "Type": {
+            "Name": "Admin"
+          }
+        },
+        {
+          "Name": "Member",
+          "DisplayName": "Participating Member",
+          "Description": "Name Of Member Submitting The Bids.",
+          "Type": {
+            "Name": "Member"
+          }
+        },
+        {
+          "Name": "product",
+          "DisplayName": "Product",
+          "Description": "Product",
+          "Type": {
+            "Name": "string"
+          }
+        },
+        {
+          "Name": "location",
+          "DisplayName": "Location",
+          "Description": "Location.",
+          "Type": {
+            "Name": "string"
+          }
+        },
+        {
+          "Name": "AveragePrice",
+          "DisplayName": "Published Price",
+          "Description": "Published Price",
+          "Type": {
+            "Name": "money"
+          }
+        }
+      ],
+      "Constructor": {
+        "Parameters": [
+          {
+            "Name": "_product",
+            "Description": "...",
+            "DisplayName": "Open Contract For Product",
+            "Type": {
+              "Name": "string"
+            }
+          },
+		  {
+            "Name": "_location",
+            "Description": "...",
+            "DisplayName": "At Location",
+            "Type": {
+              "Name": "string"
+            }
+          }
+        ]
+      },
+
+  
+  
+  
+      "Functions": [
+ 	
+        {
+          "Name": "enterbid",
+          "DisplayName": "Enter The Bid Details",
+          "Description": "...",
+          "Parameters": [
+            {
+              "Name": "_product",
+              "Description": "...",
+              "DisplayName": "Product",
+              "Type": {
+                "Name": "string"
+              }
+            },
+			{
+              "Name": "_location",
+              "Description": "...",
+              "DisplayName": "Location",
+              "Type": {
+                "Name": "string"
+              }
+            },
+			{
+              "Name": "_NumberOfTransaction",
+              "Description": "...",
+              "DisplayName": "NumberOfTransaction",
+              "Type": {
+                "Name": "int"
+              }
+            },
+			{
+              "Name": "_bidprice",
+              "Description": "...",
+              "DisplayName": "Bid Price",
+              "Type": {
+                "Name": "int"
+              }
+            },
+			{
+              "Name": "_askprice",
+              "Description": "...",
+              "DisplayName": "Ask Price",
+              "Type": {
+                "Name": "int"
+              }
+            }
+          ]
+        },
+		
+        {
+          "Name": "calculatePrice",
+          "DisplayName": "Publish Price",
+          "Description": "...",
+          "Parameters": []
+        }
+      ],
+
+      "States": [
+        {
+          "Name": "Open",
+          "DisplayName": "Open Bid",
+          "Description": "...",
+          "PercentComplete": 50,
+          "Value": 0,
+          "Style": "Success",
+          "Transitions": [
+            {
+              "AllowedRoles": [],
+              "AllowedInstanceRoles": ["Admin"],
+              "Description": "...",
+              "Function": "calculatePrice",
+              "NextStates": [ "Close" ],
+              "DisplayName": "Open Bid"
+            },
+			{
+              "AllowedRoles": ["Member"],
+              "AllowedInstanceRoles": [],
+              "Description": "...",
+              "Function": "enterbid",
+              "NextStates": [ "Open" ],
+              "DisplayName": "Add Bid"
+            }
+          ]
+		},
+		{
+          "Name": "Close",
+          "DisplayName": "Close Bid",
+          "Description": "...",
+          "PercentComplete": 50,
+          "Value": 0,
+          "Style": "Success",
+          "Transitions": []
+		}
+      ]
+  }
+  ]
+ }
